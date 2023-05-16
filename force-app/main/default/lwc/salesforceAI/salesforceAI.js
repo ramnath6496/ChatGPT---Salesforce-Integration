@@ -1,4 +1,5 @@
 import { LightningElement, track, api } from 'lwc';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import generateResponse from '@salesforce/apex/AIService.generateResponse';
 
 export default class SalesforceAI extends LightningElement {
@@ -37,10 +38,18 @@ export default class SalesforceAI extends LightningElement {
                     };
                     this.conversation = [...this.conversation, assistantMessage];
                 } else {
-                    console.error('Error generating ChatGPT response: Empty response');
+                    this.dispatchEvent(new ShowToastEvent({
+                    title: 'ERROR!!!',
+                    message: 'Error generating ChatGPT response: Empty response',
+                    variant: 'error'
+                }))
                 }
             } catch (error) {
-                console.error('Error generating ChatGPT response:', error);
+                this.dispatchEvent(new ShowToastEvent({
+                title: 'ERROR!!!',
+                message: error.body.message,
+                variant: 'error'
+            }))
             }
         }
     }
@@ -51,8 +60,11 @@ export default class SalesforceAI extends LightningElement {
             const response = await generateResponse({ prompt: prompt });
             return response;
         } catch (error) {
-            console.error('Error: Unable to generate response from ChatGPT.', error);
-            return 'Error: Unable to generate response from ChatGPT.';
+            this.dispatchEvent(new ShowToastEvent({
+                title: 'ERROR!!!',
+                message: error.body.message,
+                variant: 'error'
+            }))
         }
     }
     

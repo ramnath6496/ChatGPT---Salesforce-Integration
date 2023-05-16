@@ -8,10 +8,10 @@
                             <div class={message.containerClass}>
                                 <div class="slds-chat-message__text">
                                     <template lwc:if={message.isBot}>
-                                        <span class={message.textClass}>GPT : {message.text}</span>
+                                        <span class={message.textClass}><strong>GPT :</strong> {message.text}</span>
                                     </template>
                                     <template lwc:else>
-                                        <span class={message.textClass}>User : {message.text}</span>
+                                        <span class={message.textClass}><strong>User :</strong> {message.text}</span>
                                     </template>
                                 </div>
                             </div>
