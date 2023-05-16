@@ -1,5 +1,5 @@
 public with sharing class AIService {
-    private static final String API_KEY = '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'; // Replace with your actual API key
+    private static final String API_KEY = 'YOUR_API_KEY'; // Replace THE VALUE with your actual API key
     private static final String ENDPOINT_URL = 'https://api.openai.com/v1/chat/completions';
 
     @AuraEnabled(cacheable=false)
