@@ -5,6 +5,7 @@ import generateResponse from '@salesforce/apex/AIService.generateResponse';
 export default class SalesforceAI extends LightningElement {
     @track conversation = [];
     @track messageInput = '';
+    @track isLoading = false;
 
     handleChange(event) {
         if (event && event.target) {
@@ -19,6 +20,7 @@ export default class SalesforceAI extends LightningElement {
     }
 
     async handleSendMessage() {
+        this.isLoading = true;
         if (this.messageInput && this.messageInput.trim() !== '') {
             const userMessage = {
                 id: 'user-' + this.conversation.length,
@@ -33,6 +35,7 @@ export default class SalesforceAI extends LightningElement {
 
             try {
                 const chatGPTResponse = await generateResponse({ messageText: this.conversation[this.conversation.length - 1]?.text });
+                this.isLoading = false;
                 if (chatGPTResponse && chatGPTResponse.trim() !== '') {
                     const assistantMessage = {
                         id: 'assistant-' + this.conversation.length,
@@ -56,6 +59,7 @@ export default class SalesforceAI extends LightningElement {
                     message: error.body.message,
                     variant: 'error'
                 }))
+                this.isLoading = false
             }
         }
     }

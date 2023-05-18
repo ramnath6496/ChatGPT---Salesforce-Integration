@@ -51,7 +51,7 @@ public with sharing class AIService {
             }
         } else {
             System.debug('Error: ' + res.getStatusCode() + ' ' + res.getStatus());
-            throw new ChatGPTException('Error: Unable to generate response from ChatGPT.');
+            throw new ChatGPTException('Error: ' + res.getStatusCode() + ' ' + res.getStatus());
         }
 
         return '';

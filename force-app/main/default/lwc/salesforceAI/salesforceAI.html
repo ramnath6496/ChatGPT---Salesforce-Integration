@@ -18,6 +18,9 @@
                                             <abbr class="slds-avatar__initials slds-icon-custom-custom101" title="User">RM</abbr>
                                         </span>
                                         <span class={message.textClass}>{message.text}</span>
+                                        <template lwc:if={isLoading}>
+                                                <lightning-spinner variant="brand" alternative-text="Loading" size="medium"></lightning-spinner>
+                                        </template>
                                     </template>
                                 </div>
                             </div>
