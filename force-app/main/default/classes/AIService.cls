@@ -9,7 +9,7 @@ public with sharing class AIService {
         req.setMethod('POST');
         req.setTimeout(1000*120);
         req.setHeader('Content-Type', 'application/json');
-        req.setHeader('Authorization', 'Bearer ' + API_KEY); // Add the API key to the request header
+        req.setHeader('Authorization', 'Bearer ' + API_KEY); // Add the API key to the request 
 
         // Set the request body
         String prompt = 'You are a helpful assistant.\nUser: ' + messageText + '\nAssistant:';
