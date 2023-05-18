@@ -1,4 +1,5 @@
 import { LightningElement, api, track } from 'lwc';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import getNonBlankFields from '@salesforce/apex/RecordGetter.getNonBlankFields';
 
 export default class BrainAI extends LightningElement {
@@ -22,7 +23,11 @@ export default class BrainAI extends LightningElement {
                 this.isLoading = false;
             })
             .catch((error) => {
-                console.error('Error fetching non-blank fields:', error);
+                this.dispatchEvent(new ShowToastEvent({
+                    title: 'Error fetching non-blank fields:',
+                    message: error.body.message,
+                    variant: 'error'
+                }))
                 this.isLoading = false;
             });
     }
@@ -32,7 +37,7 @@ export default class BrainAI extends LightningElement {
         const emailRegex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
         const nonEmailParts = fieldsText.split(emailRegex);
         const emails = [...fieldsText.matchAll(emailRegex)].map(match => match[0]);
-    
+
         let formattedParts = [];
         for (let i = 0; i < nonEmailParts.length; i++) {
             const nonEmailPart = nonEmailParts[i];
@@ -50,10 +55,6 @@ export default class BrainAI extends LightningElement {
                 }
             });
         }
-    
         return formattedParts;
     }
-    
-    
-    
 }

@@ -1,16 +1,14 @@
 <template>
     <lightning-card title="Your AI Assistant" icon-name="custom:custom19">
         <div class="slds-var-m-around_medium slds-text-heading_small">
-            <template if:true={isLoading}>
+            <template lwc:if={isLoading}>
                 <p>
                     <lightning-spinner variant="brand" alternative-text="Loading" size="medium"></lightning-spinner>
                 </p>
-
             </template>
-            <template if:true={nonBlankFields}>
+            <template lwc:if={nonBlankFields}>
                 <p>
                     <template for:each={nonBlankFieldsFormatted} for:item="fieldInfo">
-
                         <p key={fieldInfo.id} class="slds-var-p-top_medium">
                             <span>{fieldInfo.text} </span>
                         </p>

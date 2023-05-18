@@ -12,6 +12,12 @@ export default class SalesforceAI extends LightningElement {
         }
     }
 
+    handleKeyUp(event) {
+        if (event.keyCode === 13) {
+            this.handleSendMessage();
+        }
+    }
+
     async handleSendMessage() {
         if (this.messageInput && this.messageInput.trim() !== '') {
             const userMessage = {
@@ -20,7 +26,7 @@ export default class SalesforceAI extends LightningElement {
                 text: this.messageInput,
                 containerClass: 'slds-chat-message slds-chat-message__text_outbound user-message',
                 textClass: 'slds-chat-message__text slds-chat-message__text_outbound',
-                isBot : false
+                isBot: false
             };
             this.conversation = [...this.conversation, userMessage];
             this.messageInput = '';
@@ -32,24 +38,24 @@ export default class SalesforceAI extends LightningElement {
                         id: 'assistant-' + this.conversation.length,
                         role: 'assistant',
                         text: chatGPTResponse,
-                        containerClass: 'slds-chat-message slds-chat-message_inbound',
+                        containerClass: 'slds-chat-message slds-chat-message__text_inbound',
                         textClass: 'slds-chat-message__text slds-chat-message__text_inbound',
-                        isBot : true
+                        isBot: true
                     };
                     this.conversation = [...this.conversation, assistantMessage];
                 } else {
                     this.dispatchEvent(new ShowToastEvent({
-                    title: 'ERROR!!!',
-                    message: 'Error generating ChatGPT response: Empty response',
-                    variant: 'error'
-                }))
+                        title: 'ERROR!!!',
+                        message: 'Error generating ChatGPT response: Empty response',
+                        variant: 'error'
+                    }))
                 }
             } catch (error) {
                 this.dispatchEvent(new ShowToastEvent({
-                title: 'ERROR!!!',
-                message: error.body.message,
-                variant: 'error'
-            }))
+                    title: 'ERROR!!!',
+                    message: error.body.message,
+                    variant: 'error'
+                }))
             }
         }
     }
@@ -67,5 +73,5 @@ export default class SalesforceAI extends LightningElement {
             }))
         }
     }
-    
+
 }

@@ -6,12 +6,18 @@
                     <template for:each={conversation} for:item="message">
                         <li key={message.id} class="slds-chat-listitem slds-var-m-bottom_small">
                             <div class={message.containerClass}>
-                                <div class="slds-chat-message__text">
+                                <div class="slds-chat-message__text slds-text-align_left">
                                     <template lwc:if={message.isBot}>
-                                        <span class={message.textClass}><strong>GPT :</strong> {message.text}</span>
+                                        <span class="slds-avatar slds-avatar_circle slds-var-m-left_xx-small slds-align-middle">
+                                            <abbr class="slds-avatar__initials slds-icon-standard-strategy" title="ChatGPT">AI</abbr>
+                                        </span>
+                                        <span class={message.textClass}>{message.text}</span>
                                     </template>
                                     <template lwc:else>
-                                        <span class={message.textClass}><strong>User :</strong> {message.text}</span>
+                                        <span class="slds-avatar slds-avatar_circle slds-var-m-left_xx-small slds-align-middle">
+                                            <abbr class="slds-avatar__initials slds-icon-custom-custom101" title="User">RM</abbr>
+                                        </span>
+                                        <span class={message.textClass}>{message.text}</span>
                                     </template>
                                 </div>
                             </div>
@@ -19,12 +25,12 @@
                     </template>
                 </ul>
             </div>
-            <div class="slds-grid slds-grid_align-spread slds-var-p-top_medium">
-                <div class="slds-col slds-size_10-of-12">
-                    <lightning-input type="text" label="Type your message" value={messageInput}
-                        onchange={handleChange}></lightning-input>
+            <div class="slds-grid slds-gutters slds-var-p-top_medium">
+                <div class="slds-col slds-size_3-of-4">
+                    <lightning-input type="text" label="Type your message" value={messageInput} onchange={handleChange}
+                        onkeyup={handleKeyUp}></lightning-input>
                 </div>
-                <div class="slds-col slds-size_2-of-12 slds-text-align_right slds-align-middle slds-var-p-top_medium">
+                <div class="slds-col slds-size_1-of-4 slds-align-bottom slds-var-p-top_medium">
                     <lightning-button label="Send" onclick={handleSendMessage} variant="brand"></lightning-button>
                 </div>
             </div>
