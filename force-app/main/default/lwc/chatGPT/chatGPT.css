@@ -1,0 +1,13 @@
+.user-message {
+    text-align: right;
+    margin-bottom: 0.5rem;
+}
+
+.slds-chat-message__text_outbound {
+    background-color: green;
+}
+
+.slds-chat-message__text_inbound {
+    background-color: #444b9b;
+    color: #fff;
+}
